@@ -1,0 +1,46 @@
+.container{
+    position: relative;
+    min-height: 100vh;
+}
+.timer,
+.timer_controls__btn{
+    font-family: 'Press Start 2P', cursive;
+}
+.timer{
+    width: 300px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.timer_clock:after{
+    content: '';
+    display: table;
+    clear: both;
+}
+.timer_minutes,
+.timer_seconds{
+    width: 45%;
+    float: left;
+}
+.timer_minutes{
+    text-align: right;
+}
+.timer_seconds{
+    text-align: left;
+}
+.timer span{
+    width: 10%;
+    float: left;
+}
+button.timer_controls__btn{
+    width: 80%;
+    margin: 10px auto 0 auto;
+    padding: 10px 0;
+    border: none;
+    color: #fff;
+    background-color:#3D9DFF;
+}
