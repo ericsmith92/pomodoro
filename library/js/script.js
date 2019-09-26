@@ -4,10 +4,7 @@ function start(){
     const timerSecs = document.querySelector('.timer_seconds');
     const ding = document.querySelector('.timer_audio');
     const title = document.querySelector('title');
-
-    //let timeTarget = 
-    //let workCycle = true;
-
+ 
     function startTimer(){
         const kickOffTime = new Date().getTime() + 1500000;
         timer(kickOffTime, true);
@@ -19,13 +16,14 @@ function start(){
             const timeNow = new Date().getTime();
             const difference = timeTarget - timeNow;
 
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            console.log(typeof minutes);
+            minutes = minutes <= 9 ? `0${minutes}` : minutes;
+            seconds = seconds  <= 9 ? `0${seconds}` : seconds;
 
-            timerSecs.innerHTML = seconds  <= 9 ? `0${seconds}` : seconds;
-            timerMins.innerHTML = minutes <= 9 ? `0${minutes}` : minutes;
+            timerMins.innerHTML = minutes;
+            timerSecs.innerHTML = seconds;
             title.innerHTML = `${minutes}:${seconds}`;
 
             if(difference <= 0){
