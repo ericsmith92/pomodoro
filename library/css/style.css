@@ -3,7 +3,8 @@
     min-height: 100vh;
 }
 .timer,
-.timer_controls__btn{
+.timer_controls__btn,
+.timer_cycles__btn{
     font-family: 'Press Start 2P', cursive;
 }
 .timer{
@@ -42,5 +43,25 @@ button.timer_controls__btn{
     padding: 10px 0;
     border: none;
     color: #fff;
+    background-color:#34db5e;
+    cursor: pointer;
+}
+
+.timer_cycles{
+    margin: 10px 0 0 0;
+}
+
+.timer_cycles .timer_cycles__num{
+    width: auto;
+    float: none;
+}
+
+button.timer_cycles__btn{
+    width: 80%;
+    margin: 10px auto 0 auto;
+    padding: 10px 0;
+    border: none;
+    color: #fff;
     background-color:#3D9DFF;
+    cursor: pointer;
 }

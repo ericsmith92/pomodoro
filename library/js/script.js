@@ -4,6 +4,12 @@ function start(){
     const timerSecs = document.querySelector('.timer_seconds');
     const ding = document.querySelector('.timer_audio');
     const title = document.querySelector('title');
+    const cyclesNum = document.querySelector('.timer_cycles__num');
+    const clearBtn = document.querySelector('.timer_cycles__btn');
+
+    if( localStorage.getItem('cycleCount') !== null ){
+        cyclesNum.innerHTML = localStorage.getItem('cycleCount');
+    }
  
     function startTimer(){
         //const kickOffTime = new Date().getTime() + 1500000;
@@ -15,6 +21,21 @@ function start(){
         clearInterval(timer);
     }
 
+    function updateCycleCount(){
+        if( localStorage.getItem('cycleCount') === null ){
+            localStorage.setItem('cycleCount', '1');
+            cyclesNum.innerHTML = localStorage.getItem('cycleCount');
+        }else{
+            const newCount = parseInt(localStorage.getItem('cycleCount')) + 1;
+            localStorage.setItem('cycleCount', `${newCount}`);
+            cyclesNum.innerHTML = newCount;
+        }
+    }
+
+    function clearCycles(){
+        localStorage.removeItem('cycleCount');
+        cyclesNum.innerHTML = '0';
+    }
 
     const timer = (timeTarget, workCycle) => {
         
@@ -42,6 +63,9 @@ function start(){
                 timerMins.innerHTML = '--';
                 title.innerHTML = '--:--';
                 ding.play();
+                if(workCycle){
+                    updateCycleCount();
+                }
                 //timeTarget = workCycle ? new Date().getTime() + 300000 : new Date().getTime() +  1500000;
                 timeTarget = workCycle ? new Date().getTime() + 10000 : new Date().getTime() +  20000;
                 workCycle = workCycle ? false : true;
@@ -52,6 +76,7 @@ function start(){
     }
 
     startBtn.addEventListener('click', startTimer);
+    clearBtn.addEventListener('click', clearCycles);
 }
 
 window.onload = start;
