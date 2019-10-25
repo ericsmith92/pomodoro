@@ -6,15 +6,23 @@ function start(){
     const title = document.querySelector('title');
     const cyclesNum = document.querySelector('.timer_cycles__num');
     const clearBtn = document.querySelector('.timer_cycles__btn');
+    const stopBtn = document.querySelector('.timer_controls__stop');
+
+    let timerInterval;
 
     if( localStorage.getItem('cycleCount') !== null ){
         cyclesNum.innerHTML = localStorage.getItem('cycleCount');
     }
  
     function startTimer(){
-        //const kickOffTime = new Date().getTime() + 1500000;
-        const kickOffTime = new Date().getTime() + 20000;
+        const kickOffTime = new Date().getTime() + 1500000;
         timer(kickOffTime, true);
+    }
+
+    function stopTimer(){
+      clearInterval(timerInterval);
+      timerSecs.innerHTML = '00';
+      timerMins.innerHTML = '00';
     }
 
     function clearTimer(timer){
@@ -37,27 +45,27 @@ function start(){
         cyclesNum.innerHTML = '0';
     }
 
+
     const timer = (timeTarget, workCycle) => {
         
-        const timerInterval = setInterval (function() {
-        
+        timerInterval = setInterval (function() {
         
             const timeNow = new Date().getTime();
             const difference = timeTarget - timeNow;
-            
-            let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            let minutes = Math.floor((difference / 1000 / 60) % 60);
+            let seconds = Math.floor((difference  / 1000) % 60);
 
             minutes = minutes <= 9 ? `0${minutes}` : minutes;
             seconds = seconds  <= 9 ? `0${seconds}` : seconds;
+
+            console.log(`Seconds: ${seconds}`);
 
             timerMins.innerHTML = minutes;
             timerSecs.innerHTML = seconds;
             title.innerHTML = `${minutes}:${seconds}`;
 
-            console.log(difference);
             if( difference <= 0 ){
-                console.log('fired');
                 clearTimer(timerInterval);
                 timerSecs.innerHTML = '--';
                 timerMins.innerHTML = '--';
@@ -66,17 +74,16 @@ function start(){
                 if(workCycle){
                     updateCycleCount();
                 }
-                //timeTarget = workCycle ? new Date().getTime() + 300000 : new Date().getTime() +  1500000;
-                timeTarget = workCycle ? new Date().getTime() + 10000 : new Date().getTime() +  20000;
+                timeTarget = workCycle ? new Date().getTime() + 300000 : new Date().getTime() +  1500000;
                 workCycle = workCycle ? false : true;
                 timer(timeTarget, workCycle);
             }
-
         }, 1000);
     }
 
     startBtn.addEventListener('click', startTimer);
     clearBtn.addEventListener('click', clearCycles);
+    stopBtn.addEventListener('click', stopTimer);
 }
 
 window.onload = start;

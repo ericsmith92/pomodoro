@@ -4,6 +4,7 @@
 }
 .timer,
 .timer_controls__btn,
+.timer_controls__stop,
 .timer_cycles__btn{
     font-family: 'Press Start 2P', cursive;
 }
@@ -37,16 +38,28 @@
     width: 10%;
     float: left;
 }
-button.timer_controls__btn{
-    width: 80%;
+.timer_controls:after{
+    content: '';
+    display: table;
+    clear: both;
+}
+button.timer_controls__btn,
+button.timer_controls__stop{
+    width: 48%;
     margin: 10px auto 0 auto;
     padding: 10px 0;
     border: none;
     color: #fff;
     background-color:#34db5e;
     cursor: pointer;
+    float: left;
 }
-
+button.timer_controls__btn{
+    margin-right: 4%;
+}
+button.timer_controls__stop{
+    background-color: #db5334;
+}
 .timer_cycles{
     margin: 10px 0 0 0;
 }
@@ -57,7 +70,7 @@ button.timer_controls__btn{
 }
 
 button.timer_cycles__btn{
-    width: 80%;
+    width: 100%;
     margin: 10px auto 0 auto;
     padding: 10px 0;
     border: none;
