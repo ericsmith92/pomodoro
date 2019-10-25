@@ -11,28 +11,18 @@ function start(){
         timer(kickOffTime, true);
     }
 
-    let eric = null;
+    function clearTimer(timer){
+        clearInterval(timer);
+    }
+
 
     const timer = (timeTarget, workCycle) => {
         
-       eric = setInterval (function() {
+        const timerInterval = setInterval (function() {
         
-        const timeNow = new Date().getTime();
-        const difference = timeTarget - timeNow;
-        console.log(difference);
-        if(difference <= 0){
-            console.log('fired');
-            clearInterval(eric);
-            timerSecs.innerHTML = '--';
-            timerMins.innerHTML = '--';
-            title.innerHTML = '--:--';
-            ding.play();
-            //timeTarget = workCycle ? new Date().getTime() + 300000 : new Date().getTime() +  1500000;
-            timeTarget = workCycle ? new Date().getTime() + 10000 : new Date().getTime() +  20000;
-            workCycle = workCycle ? false : true;
-            timer(timeTarget, workCycle);
-        }
-            
+        
+            const timeNow = new Date().getTime();
+            const difference = timeTarget - timeNow;
             
             let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((difference % (1000 * 60)) / 1000);
@@ -43,6 +33,20 @@ function start(){
             timerMins.innerHTML = minutes;
             timerSecs.innerHTML = seconds;
             title.innerHTML = `${minutes}:${seconds}`;
+
+            console.log(difference);
+            if( difference <= 0 ){
+                console.log('fired');
+                clearTimer(timerInterval);
+                timerSecs.innerHTML = '--';
+                timerMins.innerHTML = '--';
+                title.innerHTML = '--:--';
+                ding.play();
+                //timeTarget = workCycle ? new Date().getTime() + 300000 : new Date().getTime() +  1500000;
+                timeTarget = workCycle ? new Date().getTime() + 10000 : new Date().getTime() +  20000;
+                workCycle = workCycle ? false : true;
+                timer(timeTarget, workCycle);
+            }
 
         }, 1000);
     }
